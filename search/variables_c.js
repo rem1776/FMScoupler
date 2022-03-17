@@ -1,22 +1,8 @@
 var searchData=
 [
-  ['n_5fatm_5ftr_560',['n_atm_tr',['../namespaceatm__land__ice__flux__exchange__mod.html#abe8dd7812b9263217a2cd03e3f6e5986',1,'atm_land_ice_flux_exchange_mod']]],
-  ['n_5fatm_5ftr_5ftot_561',['n_atm_tr_tot',['../namespaceatm__land__ice__flux__exchange__mod.html#a5af2113231a04ffd8e8378903ad15d64',1,'atm_land_ice_flux_exchange_mod']]],
-  ['n_5fexch_5ftr_562',['n_exch_tr',['../namespaceatm__land__ice__flux__exchange__mod.html#ae09127cdff74b500a41ad951257752d4',1,'atm_land_ice_flux_exchange_mod']]],
-  ['n_5flnd_5ftr_563',['n_lnd_tr',['../namespaceatm__land__ice__flux__exchange__mod.html#acbcc6065e05775564c83054c42332e84',1,'atm_land_ice_flux_exchange_mod']]],
-  ['n_5flnd_5ftr_5ftot_564',['n_lnd_tr_tot',['../namespaceatm__land__ice__flux__exchange__mod.html#aaefc6b7257ff1938f8fa671e0361579b',1,'atm_land_ice_flux_exchange_mod']]],
-  ['n_5fxgrid_5frunoff_565',['n_xgrid_runoff',['../namespaceland__ice__flux__exchange__mod.html#a3faf3bf1354b5359565b04fd6e15812c',1,'land_ice_flux_exchange_mod']]],
-  ['n_5fxgrid_5fsfc_566',['n_xgrid_sfc',['../namespaceatm__land__ice__flux__exchange__mod.html#aec976f33bcf263db8ec930400f1b5ba6',1,'atm_land_ice_flux_exchange_mod']]],
-  ['nblocks_567',['nblocks',['../namespaceatm__land__ice__flux__exchange__mod.html#a3b94aaeafe989d18f0e844a6a58018c7',1,'atm_land_ice_flux_exchange_mod::nblocks()'],['../namespaceflux__exchange__mod.html#a130755a7de1ad93566db2496df4f09a8',1,'flux_exchange_mod::nblocks()']]],
-  ['ncar_5focean_5fflux_568',['ncar_ocean_flux',['../namespacesurface__flux__mod.html#aa5809456b7f52a5f0a3cbbfee216d049',1,'surface_flux_mod']]],
-  ['ncar_5focean_5fflux_5fmultilevel_569',['ncar_ocean_flux_multilevel',['../namespacesurface__flux__mod.html#a7a001b64a7af7de49f02b3386b29207e',1,'surface_flux_mod']]],
-  ['ncar_5focean_5fflux_5forig_570',['ncar_ocean_flux_orig',['../namespacesurface__flux__mod.html#ab3f2c5dea16751feec4012925d936b42',1,'surface_flux_mod']]],
-  ['ni_5fatm_571',['ni_atm',['../namespaceatm__land__ice__flux__exchange__mod.html#a3eca478a281245b2a1217b66917936b0',1,'atm_land_ice_flux_exchange_mod::ni_atm()'],['../namespaceflux__exchange__mod.html#a19ced8a2d78de1df319982dc8c9b2236',1,'flux_exchange_mod::ni_atm()']]],
-  ['nj_5fatm_572',['nj_atm',['../namespaceatm__land__ice__flux__exchange__mod.html#a7f93e3452d718c2449d09cfee5174987',1,'atm_land_ice_flux_exchange_mod::nj_atm()'],['../namespaceflux__exchange__mod.html#af0530282de56c7247536aa084919fecc',1,'flux_exchange_mod::nj_atm()']]],
-  ['nk_5fice_573',['nk_ice',['../namespaceatm__land__ice__flux__exchange__mod.html#a4382a4653bce90fa50988dbf415ba7d9',1,'atm_land_ice_flux_exchange_mod']]],
-  ['no_5fneg_5fq_574',['no_neg_q',['../namespacesurface__flux__mod.html#a20a47247f850d8adec96fd50382ff353',1,'surface_flux_mod']]],
-  ['nxc_5fice_575',['nxc_ice',['../namespaceatm__land__ice__flux__exchange__mod.html#a1a93322c5bc5013dead0189eb44cb92e',1,'atm_land_ice_flux_exchange_mod']]],
-  ['nxc_5flnd_576',['nxc_lnd',['../namespaceatm__land__ice__flux__exchange__mod.html#ab90bd2d918553aa753e88bc71217d1aa',1,'atm_land_ice_flux_exchange_mod']]],
-  ['nyc_5fice_577',['nyc_ice',['../namespaceatm__land__ice__flux__exchange__mod.html#a8d9d3bc11f1a73d8a019470b1769a156',1,'atm_land_ice_flux_exchange_mod']]],
-  ['nyc_5flnd_578',['nyc_lnd',['../namespaceatm__land__ice__flux__exchange__mod.html#ac39eb3c6c82add4a1d0d7e2857c5b431',1,'atm_land_ice_flux_exchange_mod']]]
+  ['mask_765',['mask',['../structice__model__mod_1_1ice__data__type.html#ad4f7ac297bdae085c0454e08a09af5ea',1,'ice_model_mod::ice_data_type']]],
+  ['mixed_5flayer_5focean_766',['mixed_layer_ocean',['../namespaceice__model__mod.html#adcb40b7a9c1a8531077d0f779e7ffebb',1,'ice_model_mod']]],
+  ['mod_5fname_767',['mod_name',['../namespaceatm__land__ice__flux__exchange__mod.html#a64ca82dba9df2806db81c86c57bd273d',1,'atm_land_ice_flux_exchange_mod::mod_name()'],['../namespaceatmos__ocean__dep__fluxes__calc__mod.html#a797fc4e4d632cba73982897b8b70563b',1,'atmos_ocean_dep_fluxes_calc_mod::mod_name()'],['../namespaceatmos__ocean__fluxes__calc__mod.html#ac9291db41140417d091d7d400d3764eb',1,'atmos_ocean_fluxes_calc_mod::mod_name()'],['../namespaceflux__exchange__mod.html#a303984a1be495e4592969bb87dc8bc64',1,'flux_exchange_mod::mod_name()']]],
+  ['module_5fis_5finitialized_768',['module_is_initialized',['../namespacesurface__flux__mod.html#a1c299d53b30a808f13cf0b0c5532041e',1,'surface_flux_mod::module_is_initialized()'],['../namespaceice__model__mod.html#aa482dd87dc4c239130f7b8f8f4e2aafd',1,'ice_model_mod::module_is_initialized()']]],
+  ['my_5fnblocks_769',['my_nblocks',['../namespaceatm__land__ice__flux__exchange__mod.html#a22bfbb18d1071d20503054e5a56628c6',1,'atm_land_ice_flux_exchange_mod']]]
 ];

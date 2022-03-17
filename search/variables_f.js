@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['raoult_5fsat_5fvap_581',['raoult_sat_vap',['../namespacesurface__flux__mod.html#a20457ec53d55f2819c2109515b92a79f',1,'surface_flux_mod']]],
-  ['redist_582',['redist',['../namespaceatm__land__ice__flux__exchange__mod.html#a9d21a4be462dd340e9f192cc66627d54',1,'atm_land_ice_flux_exchange_mod::redist()'],['../namespaceice__ocean__flux__exchange__mod.html#a88b8a5285095c340dca8950527c4ef22',1,'ice_ocean_flux_exchange_mod::redist()']]],
-  ['regenclock_583',['regenclock',['../namespaceatm__land__ice__flux__exchange__mod.html#a5ea8ad1958bb201b40dbba386178c8de',1,'atm_land_ice_flux_exchange_mod']]],
-  ['regrid_584',['regrid',['../namespaceatm__land__ice__flux__exchange__mod.html#a6d21fff836af698eb07aea029290cc4b',1,'atm_land_ice_flux_exchange_mod::regrid()'],['../namespaceice__ocean__flux__exchange__mod.html#aef153e9e45815d4477bf87520c57a1ba',1,'ice_ocean_flux_exchange_mod::regrid()']]],
-  ['remap_5fmethod_585',['remap_method',['../namespaceatm__land__ice__flux__exchange__mod.html#a96ed2d0c9f780f120de2d1c2dd83dd09',1,'atm_land_ice_flux_exchange_mod']]]
+  ['p_5fsurf_790',['p_surf',['../namespaceflux__exchange__mod.html#af050af83a95afbfc896f4861ba4cdd1d',1,'flux_exchange_mod']]],
+  ['partition_5ffprec_5ffrom_5flprec_791',['partition_fprec_from_lprec',['../namespaceatm__land__ice__flux__exchange__mod.html#a514ebadfb8dcb7ae7bf696f6e3eae11a',1,'atm_land_ice_flux_exchange_mod::partition_fprec_from_lprec()'],['../namespaceflux__exchange__mod.html#a2a3ce00fb63574459609d6b3ad334acb',1,'flux_exchange_mod::partition_fprec_from_lprec()']]]
 ];

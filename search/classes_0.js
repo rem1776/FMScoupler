@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['put_5flogical_5fto_5freal_304',['put_logical_to_real',['../interfaceatm__land__ice__flux__exchange__mod_1_1put__logical__to__real.html',1,'atm_land_ice_flux_exchange_mod']]]
+  ['atmos_5fice_5fboundary_5ftype_425',['atmos_ice_boundary_type',['../structice__model__mod_1_1atmos__ice__boundary__type.html',1,'ice_model_mod']]]
 ];
