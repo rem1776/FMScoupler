@@ -22,6 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">FMS Coupler
+   &#160;<span id="projectnumber">2022.01</span>
    </div>
   </td>
  </tr>
@@ -71,7 +72,10 @@ $(function() {
 <div class="title">full/coupler_main.F90 File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<h3 class="version">(3b8f58622fc3b1ec1d23de87ecd8dc12a5b1be0c)</h3><table class="memberdecls">
+<h3 class="version">(99103301f4ebce05d5e697d3354fb926408c3f71)</h3>
+<p>Main driver program for full coupler. Provides the capability to couple component models (atmosphere, land, sea ice, and ocean)  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
 <tr class="memitem:ae6938ccf85d88f9b7127a81ce195bad2"><td class="memItemLeft" align="right" valign="top">program&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="full_2coupler__main_8_f90.html#ae6938ccf85d88f9b7127a81ce195bad2">coupler_main</a></td></tr>
@@ -100,7 +104,9 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memdesc:ae49dcfd3c1f5b4c5d246a89a6c94ba5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This subroutine calls subroutine that will print out checksums of the elements of the appropriate type.  <a href="full_2coupler__main_8_f90.html#ae49dcfd3c1f5b4c5d246a89a6c94ba5a">More...</a><br /></td></tr>
 <tr class="separator:ae49dcfd3c1f5b4c5d246a89a6c94ba5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function/Subroutine Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Main driver program for full coupler. Provides the capability to couple component models (atmosphere, land, sea ice, and ocean) </p>
+</div><h2 class="groupheader">Function/Subroutine Documentation</h2>
 <a id="a77f8adb252c96f286a23661a63df4297"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a77f8adb252c96f286a23661a63df4297">&#9670;&nbsp;</a></span>add_domain_dimension_data()</h2>
 
@@ -417,12 +423,12 @@ Functions/Subroutines</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="afull_2coupler__main_8_f90_html_afd317a9fd5d73ddf5ecb09f2e5fc17a8"><div class="ttname"><a href="full_2coupler__main_8_f90.html#afd317a9fd5d73ddf5ecb09f2e5fc17a8">slow_ice_chksum</a></div><div class="ttdeci">subroutine slow_ice_chksum(id, timestep, Ice, Ocean_ice_boundary)</div><div class="ttdoc">This subroutine calls subroutine that will print out checksums of the elements of the appropriate typ...</div><div class="ttdef"><b>Definition:</b> full/coupler_main.F90:2224</div></div>
-<div class="ttc" id="afull_2coupler__main_8_f90_html_ae49dcfd3c1f5b4c5d246a89a6c94ba5a"><div class="ttname"><a href="full_2coupler__main_8_f90.html#ae49dcfd3c1f5b4c5d246a89a6c94ba5a">ocean_chksum</a></div><div class="ttdeci">subroutine ocean_chksum(id, timestep, Ocean, Ice_ocean_boundary)</div><div class="ttdoc">This subroutine calls subroutine that will print out checksums of the elements of the appropriate typ...</div><div class="ttdef"><b>Definition:</b> full/coupler_main.F90:2255</div></div>
-<div class="ttc" id="afull_2coupler__main_8_f90_html_ad93ad9c33a04173cc14818d205fb1bfa"><div class="ttname"><a href="full_2coupler__main_8_f90.html#ad93ad9c33a04173cc14818d205fb1bfa">atmos_ice_land_chksum</a></div><div class="ttdeci">subroutine atmos_ice_land_chksum(id, timestep, Atm, Land, Ice, Land_ice_atmos_boundary, Atmos_ice_boundary, Atmos_land_boundary)</div><div class="ttdoc">This subroutine calls subroutine that will print out checksums of the elements of the appropriate typ...</div><div class="ttdef"><b>Definition:</b> full/coupler_main.F90:2177</div></div>
+<div class="ttc" id="afull_2coupler__main_8_f90_html_afd317a9fd5d73ddf5ecb09f2e5fc17a8"><div class="ttname"><a href="full_2coupler__main_8_f90.html#afd317a9fd5d73ddf5ecb09f2e5fc17a8">slow_ice_chksum</a></div><div class="ttdeci">subroutine slow_ice_chksum(id, timestep, Ice, Ocean_ice_boundary)</div><div class="ttdoc">This subroutine calls subroutine that will print out checksums of the elements of the appropriate typ...</div><div class="ttdef"><b>Definition:</b> full/coupler_main.F90:2229</div></div>
+<div class="ttc" id="afull_2coupler__main_8_f90_html_ae49dcfd3c1f5b4c5d246a89a6c94ba5a"><div class="ttname"><a href="full_2coupler__main_8_f90.html#ae49dcfd3c1f5b4c5d246a89a6c94ba5a">ocean_chksum</a></div><div class="ttdeci">subroutine ocean_chksum(id, timestep, Ocean, Ice_ocean_boundary)</div><div class="ttdoc">This subroutine calls subroutine that will print out checksums of the elements of the appropriate typ...</div><div class="ttdef"><b>Definition:</b> full/coupler_main.F90:2260</div></div>
+<div class="ttc" id="afull_2coupler__main_8_f90_html_ad93ad9c33a04173cc14818d205fb1bfa"><div class="ttname"><a href="full_2coupler__main_8_f90.html#ad93ad9c33a04173cc14818d205fb1bfa">atmos_ice_land_chksum</a></div><div class="ttdeci">subroutine atmos_ice_land_chksum(id, timestep, Atm, Land, Ice, Land_ice_atmos_boundary, Atmos_ice_boundary, Atmos_land_boundary)</div><div class="ttdoc">This subroutine calls subroutine that will print out checksums of the elements of the appropriate typ...</div><div class="ttdef"><b>Definition:</b> full/coupler_main.F90:2182</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 25 2022 15:56:43 for FMS Coupler by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 25 2022 18:05:23 for FMS Coupler by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
