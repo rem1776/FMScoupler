@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['coupler_5fmain_2ef90_136',['coupler_main.F90',['../full_2coupler__main_8_f90.html',1,'']]],
   ['f_5fq_5fdelt_5fn_137',['f_q_delt_n',['../namespaceflux__exchange__mod.html#ac1835374d54ce5533bf87bd388444d4d',1,'flux_exchange_mod']]],
   ['f_5ft_5fdelt_5fn_138',['f_t_delt_n',['../namespaceflux__exchange__mod.html#afd64fcaa6261af605cf0704e813fe0bb',1,'flux_exchange_mod']]],
   ['first_5fstatic_139',['first_static',['../namespaceatm__land__ice__flux__exchange__mod.html#ab6ec5aeec04dfbc11e9db1d496b0d276',1,'atm_land_ice_flux_exchange_mod::first_static()'],['../namespaceflux__exchange__mod.html#a6a77207b65f30f8fe2db3dd6a3cf15ea',1,'flux_exchange_mod::first_static()']]],
@@ -8,7 +7,7 @@ var searchData=
   ['flux_5fcheck_5fstocks_141',['flux_check_stocks',['../namespaceflux__exchange__mod.html#a905b179ee9688d2feeef94f3417b25e5',1,'flux_exchange_mod']]],
   ['flux_5fdown_5ffrom_5fatmos_142',['flux_down_from_atmos',['../namespaceatm__land__ice__flux__exchange__mod.html#a00af7890f0a12216b408056166df9bfe',1,'atm_land_ice_flux_exchange_mod::flux_down_from_atmos()'],['../namespaceflux__exchange__mod.html#afe03028b95b28b886955e918dbdac585',1,'flux_exchange_mod::flux_down_from_atmos()']]],
   ['flux_5fex_5farrays_5fdealloc_143',['flux_ex_arrays_dealloc',['../namespaceatm__land__ice__flux__exchange__mod.html#a81f157cbf5f8b38c93f1eac2292b52be',1,'atm_land_ice_flux_exchange_mod']]],
-  ['flux_5fexchange_2ef90_144',['flux_exchange.F90',['../full_2flux__exchange_8_f90.html',1,'']]],
+  ['flux_5fexchange_2ef90_144',['flux_exchange.F90',['../full_2flux__exchange_8_f90.html',1,'(Global Namespace)'],['../simple_2flux__exchange_8_f90.html',1,'(Global Namespace)']]],
   ['flux_5fexchange_5fend_145',['flux_exchange_end',['../namespaceflux__exchange__mod.html#a6485a12c7af1fed26ee7a8dac257a508',1,'flux_exchange_mod']]],
   ['flux_5fexchange_5finit_146',['flux_exchange_init',['../namespaceflux__exchange__mod.html#aa0a4db6845eb6ba4aa2246e67c9bcc6b',1,'flux_exchange_mod::flux_exchange_init(Time, Atm, Land, Ice, Ocean, Ocean_state, atmos_ice_boundary, land_ice_atmos_boundary, land_ice_boundary, ice_ocean_boundary, ocean_ice_boundary, do_ocean, slow_ice_ocean_pelist, dt_atmos, dt_cpld)'],['../namespaceflux__exchange__mod.html#ab2e7b7db204609a177b55f5725e57976',1,'flux_exchange_mod::flux_exchange_init(Time, Atm, Land, Ice, atmos_ice_boundary, land_ice_atmos_boundary)']]],
   ['flux_5fexchange_5fmod_147',['flux_exchange_mod',['../namespaceflux__exchange__mod.html',1,'']]],
