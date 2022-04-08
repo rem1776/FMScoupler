@@ -7,7 +7,7 @@ var searchData=
   ['sfcclock_365',['sfcclock',['../namespaceatm__land__ice__flux__exchange__mod.html#a4afcbc6731e29417a8e91a70224c813c',1,'atm_land_ice_flux_exchange_mod']]],
   ['shared_20modules_366',['Shared Modules',['../group__shared.html',1,'']]],
   ['shield_20coupler_367',['SHiELD Coupler',['../group__shield.html',1,'']]],
-  ['simple_20coupler_368',['Simple Coupler',['../group__simple.html',1,'']]],
+  ['simple_368',['simple',['../namespacesimple.html',1,'simple'],['../group__simple.html',1,'(Global Namespace)']]],
   ['slow_5fice_5fchksum_369',['slow_ice_chksum',['../full_2coupler__main_8_f90.html#afd317a9fd5d73ddf5ecb09f2e5fc17a8',1,'coupler_main.F90']]],
   ['slow_5fice_5focean_5fpelist_370',['slow_ice_ocean_pelist',['../namespaceice__ocean__flux__exchange__mod.html#a3b7a0952e69375784c15b6436be4c693',1,'ice_ocean_flux_exchange_mod']]],
   ['specified_5fice_5fthickness_371',['specified_ice_thickness',['../namespaceice__model__mod.html#a37d440034bece975f6373ba9abeb4cbc',1,'ice_model_mod']]],
@@ -18,8 +18,9 @@ var searchData=
   ['surface_5fflux_5f0d_376',['surface_flux_0d',['../namespacesurface__flux__mod.html#ad8717f85847ed2358ad0691d95f38cf0',1,'surface_flux_mod']]],
   ['surface_5fflux_5f1d_377',['surface_flux_1d',['../interfacesurface__flux__mod_1_1surface__flux.html#a0c15a066b7c540e5105807f636f68beb',1,'surface_flux_mod::surface_flux::surface_flux_1d()'],['../namespacesurface__flux__mod.html#a8476842159ecb7aa0b87ed640c311404',1,'surface_flux_mod::surface_flux_1d()']]],
   ['surface_5fflux_5f2d_378',['surface_flux_2d',['../interfacesurface__flux__mod_1_1surface__flux.html#a16a4cc07dbc53a9999a660556507d3dd',1,'surface_flux_mod::surface_flux::surface_flux_2d()'],['../namespacesurface__flux__mod.html#ac85d6e07e6edafc959d3b8ba1b2047f9',1,'surface_flux_mod::surface_flux_2d()'],['../namespaceflux__exchange__mod.html#ae4009468ad2b7568f0137e611cded1f2',1,'flux_exchange_mod::surface_flux_2d()']]],
-  ['surface_5fflux_5finit_379',['surface_flux_init',['../namespacesurface__flux__mod.html#a333b51433623e304046e80987bab0acc',1,'surface_flux_mod']]],
-  ['surface_5fflux_5fmod_380',['surface_flux_mod',['../namespacesurface__flux__mod.html',1,'']]],
-  ['sw1way_5fbug_381',['sw1way_bug',['../namespaceatm__land__ice__flux__exchange__mod.html#a10b2bf983409ff9ef96029374b31c0e7',1,'atm_land_ice_flux_exchange_mod::sw1way_bug()'],['../namespaceflux__exchange__mod.html#a1731b0c1ba2addb0cd311ea19c4da077',1,'flux_exchange_mod::sw1way_bug()']]],
-  ['sw_5fflux_382',['sw_flux',['../structice__model__mod_1_1atmos__ice__boundary__type.html#a2bc72919689b165986c3a6d953b19ab2',1,'ice_model_mod::atmos_ice_boundary_type']]]
+  ['surface_20flux_20configuration_379',['Surface Flux Configuration',['../group__shared.html',1,'']]],
+  ['surface_5fflux_5finit_380',['surface_flux_init',['../namespacesurface__flux__mod.html#a333b51433623e304046e80987bab0acc',1,'surface_flux_mod']]],
+  ['surface_5fflux_5fmod_381',['surface_flux_mod',['../namespacesurface__flux__mod.html',1,'']]],
+  ['sw1way_5fbug_382',['sw1way_bug',['../namespaceatm__land__ice__flux__exchange__mod.html#a10b2bf983409ff9ef96029374b31c0e7',1,'atm_land_ice_flux_exchange_mod::sw1way_bug()'],['../namespaceflux__exchange__mod.html#a1731b0c1ba2addb0cd311ea19c4da077',1,'flux_exchange_mod::sw1way_bug()']]],
+  ['sw_5fflux_383',['sw_flux',['../structice__model__mod_1_1atmos__ice__boundary__type.html#a2bc72919689b165986c3a6d953b19ab2',1,'ice_model_mod::atmos_ice_boundary_type']]]
 ];
