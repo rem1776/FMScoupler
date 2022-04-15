@@ -72,11 +72,11 @@ $(function() {
 <li>a slimmed down 'simple' version</li>
 <li>the SHiELD specific driver</li>
 </ul>
-<p>Additionally, files in the 'shared' directory holds modules used by multiple drivers. The information below is provided for the full coupler, but there is considerable overlap between the other versions. Additional documentation on all versions is available through the <a href="modules.html"><b>modules</b></a> and <a href="files.html"><b>files</b></a> tabs.</p>
+<p>Additionally, files in the 'shared' directory holds modules used by multiple drivers. The information below is provided for the full coupler, but there is considerable overlap between the other versions. Documentation on all programs and modules is available through the <a href="files.html"><b>files</b></a> tab.</p>
 <dl class="section author"><dt>Author</dt><dd>Bruce Wyman <a href="#" onclick="location.href='mai'+'lto:'+'Bru'+'ce'+'.Wy'+'ma'+'n@n'+'oa'+'a.g'+'ov'; return false;">Bruce<span style="display: none;">.nosp@m.</span>.Wym<span style="display: none;">.nosp@m.</span>an@no<span style="display: none;">.nosp@m.</span>aa.g<span style="display: none;">.nosp@m.</span>ov</a> </dd>
 <dd>
 V. Balaji <a href="#" onclick="location.href='mai'+'lto:'+'V.B'+'al'+'aji'+'@n'+'oaa'+'.g'+'ov'; return false;">V.Bal<span style="display: none;">.nosp@m.</span>aji@<span style="display: none;">.nosp@m.</span>noaa.<span style="display: none;">.nosp@m.</span>gov</a></dd></dl>
-<p><a class="el" href="simple_2coupler__main_8_f90.html">coupler_main.F90</a> couples component models for atmosphere, ocean, land and sea ice on independent grids. It also controls the time integration.</p>
+<p><a href="full_2coupler__main_8_f90.html"><b>coupler_main.F90</b></a> couples component models for atmosphere, ocean, land and sea ice on independent grids. It also controls the time integration.</p>
 <p>This version couples model components representing atmosphere, ocean, land and sea ice on independent grids. Each model component is represented by a data type giving the instantaneous model state.</p>
 <p>The component models are coupled to allow implicit vertical diffusion of heat and moisture at the interfaces of the atmosphere, land, and ice models. As a result, the atmosphere, land, and ice models all use the same time step. The atmospheric model has been separated into down and up calls that correspond to the down and up sweeps of the standard tridiagonal elimination.</p>
 <p>The ocean interface uses explicit mixing. Fluxes to and from the ocean must be passed through the ice model. This includes atmospheric fluxes as well as fluxes from the land to the ocean (runoff).</p>
@@ -128,7 +128,7 @@ Program Example</h1>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 15 2022 16:11:01 for FMS Coupler by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 15 2022 16:34:47 for FMS Coupler by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
