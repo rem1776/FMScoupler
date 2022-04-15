@@ -83,10 +83,10 @@ V. Balaji <a href="#" onclick="location.href='mai'+'lto:'+'V.B'+'al'+'aji'+'@n'+
 <p>This program contains the model's main time loop. Each iteration of the main time loop is one coupled (slow) time step. Within this slow time step loop is a fast time step loop, using the atmospheric time step, where the tridiagonal vertical diffusion equations are solved. Exchange between sea ice and ocean occurs once every slow timestep.</p>
 <h1><a class="anchor" id="coupler_namelists"></a>
 Namelists</h1>
-<p>The three components of coupler: <a class="el" href="simple_2coupler__main_8_f90.html#ae6938ccf85d88f9b7127a81ce195bad2">coupler_main</a> , <a class="el" href="namespaceflux__exchange__mod.html">flux_exchange_mod</a>, and <a class="el" href="namespacesurface__flux__mod.html">surface_flux_mod</a> are configured through three namelists</p><ul>
+<p>The three components of coupler: <a class="el" href="simple_2coupler__main_8_f90.html#ae6938ccf85d88f9b7127a81ce195bad2">coupler_main</a> , <a class="el" href="namespaceflux__exchange__mod.html">flux_exchange_mod</a>, and <a class="el" href="namespacesurface__flux__mod.html" title="Module for the calculation of fluxes on the exchange grids.">surface_flux_mod</a> are configured through three namelists</p><ul>
 <li><a class="el" href="coupler_config.html">coupler_nml</a></li>
 <li><a href="namespacesurface__flux__mod.html#surface_flux_config"><b>flux_exchange_conf</b></a></li>
-<li><a class="el" href="group__shared.html">surface_flux_nml</a></li>
+<li><a class="el" href="surface_flux_config.html">surface_flux_nml</a></li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd><ol type="1">
 <li>If no value is set for current_date, start_date, or calendar (or default value specified) then the value from restart file "INPUT/coupler.res" will be used. If neither a namelist value or restart file value exist the program will fail.</li>
@@ -96,6 +96,7 @@ Namelists</h1>
 </dd></dl>
 <h1><a class="anchor" id="Main"></a>
 Program Example</h1>
+<p>Below is some pseudo-code to illustrate the runtime loop of the coupler_main drivers.</p>
 <div class="fragment"><div class="line"><span class="keywordflow">DO</span> slow time steps(ocean)</div>
 <div class="line">   <span class="keyword">call </span>flux_ocean_to_ice</div>
 <div class="line"> </div>
@@ -127,7 +128,7 @@ Program Example</h1>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 11 2022 13:36:40 for FMS Coupler by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Apr 15 2022 16:11:01 for FMS Coupler by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
