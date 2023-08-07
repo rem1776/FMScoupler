@@ -21,7 +21,7 @@ mkdir $src_dir
 # mkmf -- used for now to build the model
 git clone https://github.com/NOAA-GFDL/mkmf.git
 export PATH=${PATH}:${bld_dir}/mkmf/bin
-mk_template=${bld_dir}/mkmf/templates/linux-ubuntu-xenial-gnu.mk
+mk_template=${bld_dir}/mkmf/templates/ncrc4-gcc.mk
 
 # FMS
 if [ "$1" = "--local-fms" ]; then
