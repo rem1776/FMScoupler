@@ -37,6 +37,10 @@ cd $bld_dir
 
 # atmos_null
 git clone https://github.com/NOAA-GFDL/atmos_null.git $src_dir/atmos_null
+cd $src_dir/atmos_null
+git fetch origin pull/5/head:pr5
+git checkout pr5
+cd ../..
 
 # land_null
 git clone https://github.com/NOAA-GFDL/land_null $src_dir/land_null
