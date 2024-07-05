@@ -617,10 +617,14 @@ subroutine flux_up_to_atmos (Time, Land, Ice, Boundary )
      Boundary%dt_tr(:,:,isphum) = f_q_delt_n  + dt_t_surf*e_q_n
   endwhere
 
-!print *, 'PE,dt_t(L)(mn,mx)=',fms_mpp_pe(),minval(Boundary%dt_t,mask=Land%mask(:,:,1)),maxval(Boundary%dt_t,mask=Land%mask(:,:,1))
-!print *, 'PE,dt_q(L)(mn,mx)=',fms_mpp_pe(),minval(Boundary%dt_q,mask=Land%mask(:,:,1)),maxval(Boundary%dt_q,mask=Land%mask(:,:,1))
-!print *, 'PE,dt_t(I)(mn,mx)=',fms_mpp_pe(),minval(Boundary%dt_t,mask=Ice%mask),maxval(Boundary%dt_t,mask=Ice%mask)
-!print *, 'PE,dt_q(I)(mn,mx)=',fms_mpp_pe(),minval(Boundary%dt_q,mask=Ice%mask),maxval(Boundary%dt_q,mask=Ice%mask)
+#ifdef DEBUG_COUPLER_FLUX_TO_ATMOS
+print *, 'PE,dt_t(L)(mn,mx)=',fms_mpp_pe(),minval(Boundary%dt_t,mask=Land%mask(:,:,1)), &
+         maxval(Boundary%dt_t,mask=Land%mask(:,:,1))
+print *, 'PE,dt_q(L)(mn,mx)=',fms_mpp_pe(),minval(Boundary%dt_q,mask=Land%mask(:,:,1)), &
+         maxval(Boundary%dt_q,mask=Land%mask(:,:,1))
+print *, 'PE,dt_t(I)(mn,mx)=',fms_mpp_pe(),minval(Boundary%dt_t,mask=Ice%mask),maxval(Boundary%dt_t,mask=Ice%mask)
+print *, 'PE,dt_q(I)(mn,mx)=',fms_mpp_pe(),minval(Boundary%dt_q,mask=Ice%mask),maxval(Boundary%dt_q,mask=Ice%mask)
+#endif
 
 !=======================================================================
 !-------------------- diagnostics section ------------------------------
@@ -1195,7 +1199,7 @@ subroutine surface_flux_2d (                                           &
        t_atm,     q_atm_in,   u_atm,     v_atm,              &
        p_atm,     z_atm,      t_ca,                          &
        p_surf,    t_surf,     u_surf,    v_surf,             &
-       rough_mom, rough_heat, rough_moist, rough_scale, gust
+       rough_scale, gust
   real, intent(out), dimension(:,:) :: &
        flux_t,    flux_q,     flux_r,    flux_u,  flux_v,    &
        dhdt_surf, dedt_surf,  dedq_surf, drdt_surf,          &
@@ -1203,7 +1207,8 @@ subroutine surface_flux_2d (                                           &
        w_atm,     u_star,     b_star,    q_star,             &
        thv_atm,   thv_surf,                                  &
        cd_m,      cd_t,       cd_q
-  real, intent(inout), dimension(:,:) :: q_surf
+  real, intent(inout), dimension(:,:) :: q_surf, rough_mom,  &
+       rough_heat, rough_moist
   real, intent(in) :: dt
 
   ! ---- local vars -----------------------------------------------------------
