@@ -17,6 +17,22 @@
 #* License along with FMS Coupler.
 #* If not, see <http://www.gnu.org/licenses/>.
 #***********************************************************************
+# This CMakeLists.txt file is used to build the FMS Coupler, which is the driver for GFDL's coupled models.
+# It is designed to be used with the fre-cli build system, which will set the paths to the various components and
+# their compile flags. However, it can also be used standalone by setting the paths and flags manually with -D flags
+# to cmake.
+#
+# The "direct" dependencies for the FMS Coupler are:
+# - FMS (Flexible Modeling System)
+# - Atmosphere Model (e.g. atmos_drivers, usually combined with GFDL_atmos_cubed_sphere)
+# - Ocean Model (e.g. MOM6, etc.)
+# - Land Model (e.g. LM4, etc.)
+# - Ice Model (e.g. SIS2, etc.)
+# - Atmosphere Physics Library (e.g. AM4 physics, etc.) - usually required but optional if using atmos_null
+#
+# These dependencies can be provided by multiple different code repositories, and are usually compiled alongside the 
+# libraries they use. The one exception is the atmosphere physics library, which is usually compiled as a separate
+# library and linked to the atmosphere model.
 
 cmake_minimum_required(VERSION 3.15)
 project(fmscoupler LANGUAGES Fortran)
@@ -27,225 +43,180 @@ include(FetchContent)
 set(EXTERNAL_SOURCE_DIR ${CMAKE_SOURCE_DIR}/external)
 file(MAKE_DIRECTORY ${EXTERNAL_SOURCE_DIR})
 
-# Option to build null model
-option(CLONE_NULL_MODEL "Clone dependencies for the null model, which uses placeholder code for calculations" OFF)
-# Option to add run tests (only works if building null_model)
-option(TEST_NULL_MODEL  "Enable a simple runtime test intended for the null model build" OFF)
-# Option to enable CPP macros required by the null model
-option(NULL_MODEL_MACROS "Enable CPP macros required by the null model" OFF)
+# Option to pick between simple and full coupler builds
+set(COUPLER_TYPE "full" CACHE STRING "Determines which coupler executable to build with. Options are 'simple' or 'full'.")
 
-# cloning null components implies we can run the test and should use the null model macros
-if(CLONE_NULL_MODEL)
-  set(TEST_NULL_MODEL ON CACHE BOOL "Enabling null model test (-DCLONE_NULL_MODEL=on)" FORCE)
-  set(NULL_MODEL_MACROS ON CACHE BOOL "Enabling null model macros (-DCLONE_NULL_MODEL=on)" FORCE)
+# Set source paths for each component. Model paths are semicolon-separated CMake lists.
+# These will typically be set by fre-cli from its compile.yaml file,
+# but can also be set manually with -D flags to cmake
+set(fms_path                     "" CACHE PATH   "Path to FMS source code")
+set(atmos_model_paths            "" CACHE STRING "Paths to Atmosphere Model source code")
+set(ocean_model_paths            "" CACHE STRING "Paths to Ocean Model source code")
+set(land_model_paths             "" CACHE STRING "Paths to Land Model source code")
+set(ice_model_paths              "" CACHE STRING "Paths to Ice Model source code")
+set(atmos_physics_library_paths  "" CACHE STRING "Paths to Atmosphere Physics library")
+
+# Macro definitions for each component, these will typically be set by fre-cli from its compile.yaml file,
+# but can also be set manually with -D flags to cmake
+set(fms_macros                   "" CACHE STRING "Macro definitions for FMS as a semicolon separated list")
+set(atmos_model_macros           "" CACHE STRING "Macro definitions for Atmosphere Model as a semicolon separated list")
+set(ocean_model_macros           "" CACHE STRING "Macro definitions for Ocean Model as a semicolon separated list")
+set(land_macros                  "" CACHE STRING "Macro definitions for Land Model as a semicolon separated list")
+set(ice_model_macros             "" CACHE STRING "Macro definitions for Ice Model as a semicolon separated list")
+set(atmos_physics_library_macros "" CACHE STRING "Macro definitions for Atmosphere Physics library as a semicolon separated list")
+
+# Other flags set by fre-cli from its compile.yaml file, but can also be set manually with -D flags to cmake
+set(fms_flags                   "" CACHE STRING "Compile flags for FMS")
+set(atmos_model_flags           "" CACHE STRING "Compile flags for Atmosphere Model")
+set(ocean_model_flags           "" CACHE STRING "Compile flags for Ocean Model")
+set(land_flags                  "" CACHE STRING "Compile flags for Land Model")
+set(ice_model_flags             "" CACHE STRING "Compile flags for Ice Model")
+set(atmos_physics_library_flags "" CACHE STRING "Compile flags for Atmosphere Physics library")
+
+# Error checking for required paths.
+if(NOT fms_path)
+  message(FATAL_ERROR "FMS path not set, use -Dfms_path=PATH")
+endif()
+if(NOT atmos_model_paths)
+  message(FATAL_ERROR "Atmosphere model paths not set, use -Datmos_model_paths=PATH[;PATH...]")
+endif()
+if(NOT ocean_model_paths)
+  message(FATAL_ERROR "Ocean model paths not set, use -Docean_model_paths=PATH[;PATH...]")
+endif()
+if(NOT land_model_paths)
+  message(FATAL_ERROR "Land model paths not set, use -Dland_model_paths=PATH[;PATH...]")
+endif()
+if(NOT ice_model_paths)
+  message(FATAL_ERROR "Ice model paths not set, use -Dice_model_paths=PATH[;PATH...]")
 endif()
 
-# Options for local dependencies, can be set on command line (-Dfms_path="")
-set(fms_path        "${CMAKE_SOURCE_DIR}/../FMS"        CACHE STRING "Path to local fms repository")
-set(atmos_path      "${CMAKE_SOURCE_DIR}/../atmos_null" CACHE STRING "Path to local atmospere component repository")
-set(ocean_path      "${CMAKE_SOURCE_DIR}/../ocean_null" CACHE STRING "Path to local ocean component repository")
-set(land_path       "${CMAKE_SOURCE_DIR}/../land_null"  CACHE STRING "Path to local land component repository")
-set(ice_path        "${CMAKE_SOURCE_DIR}/../ice_null"   CACHE STRING "Path to local ice component repository")
-set(ice_param_path  "${CMAKE_SOURCE_DIR}/../ice_param"  CACHE STRING "Path to local ice_param component repository")
+# fms has its own CMakeLists.txt, so we can just add it as a subdirectory unlike the other components
+add_subdirectory(${fms_path} ${CMAKE_CURRENT_BINARY_DIR}/fms_build)
+set(FMS_SOURCE_DIR "${fms_path}")
 
-# These are only used when using -DCLONE_NULL_MODEL, cannot be set manually
-set(fms_tag         "main")
-set(atmos_null_tag  "main")
-set(ocean_null_tag  "main")
-set(land_null_tag   "main")
-set(ice_null_tag    "main")
-set(ice_param_tag   "main")
-set(fms_repo        "https://github.com/noaa-gfdl/fms.git")
-set(atmos_null_repo "https://github.com/noaa-gfdl/atmos_null.git")
-set(ocean_null_repo "https://github.com/noaa-gfdl/ocean_null.git")
-set(land_null_repo  "https://github.com/noaa-gfdl/land_null.git")
-set(ice_null_repo   "https://github.com/noaa-gfdl/ice_null.git")
-set(ice_param_repo  "https://github.com/noaa-gfdl/ice_param.git")
-
-# build FMS, cloning if -DFETCH_FMS=on, otherwise expects a local path provided
-if(CLONE_NULL_MODEL)
-  FetchContent_Declare(
-    FMS
-    GIT_REPOSITORY ${fms_repo}
-    GIT_TAG ${fms_tag}
-    SOURCE_DIR ${EXTERNAL_SOURCE_DIR}/FMS
-  )
-  FetchContent_MakeAvailable(FMS)
-  message(STATUS "FMS cloned to ${FMS_SOURCE_DIR}")
-else()
-  message(NOTICE "Expecting repositories for each component locally available in
-                  '${CMAKE_SOURCE_DIR}/..'. Use -DCLONE_NULL_MODEL=on to clone components instead.")
-  add_subdirectory(${fms_path} ${CMAKE_CURRENT_BINARY_DIR}/fms_build)
-  set(FMS_SOURCE_DIR "${fms_path}")
-endif()
-
-# set variables for component repos
-# ice_param isn't a direct dependency of the coupler, but is almost always needed by
-# whatever ice_model you end up using so is included here
+# set variables for component repos, if atmos physics library path is not set, it will be skipped
 set(COMPONENTS
-  ocean
-  atmos
-  land
-  ice
-  ice_param
+  atmos_model
+  ocean_model
+  land_model
+  ice_model
 )
-# clone or symlink each component repo
+if(atmos_physics_library_paths)
+  list(APPEND COMPONENTS atmos_physics_library)
+endif()
+
+# Check paths and symlink each component repo, this is a bit of a hack to get
+# the external components into the coupler source tree.
+# TODO look into alternatives
 foreach(component_name IN LISTS COMPONENTS)
-  if(CLONE_NULL_MODEL)
-    set(component_url ${${component_name}_repo})
-    message(STATUS "Cloning ${component_url} to ${EXTERNAL_SOURCE_DIR}/${component_name}")
-    FetchContent_Declare(
-      ${component_name}
-      GIT_REPOSITORY ${component_url}
-      SOURCE_DIR ${EXTERNAL_SOURCE_DIR}/${component_name}
-      GIT_TAG ${${component_name}_tag}
-    )
-    FetchContent_MakeAvailable(${component_name})
-  else()
-    set(component_path ${${component_name}_path} )
+  file(REMOVE_RECURSE "${EXTERNAL_SOURCE_DIR}/${component_name}")
+  foreach(component_path IN LISTS ${component_name}_paths)
     if(NOT EXISTS ${component_path})
       message(FATAL_ERROR "${component_name} path not found: ${component_path}")
     endif()
+    get_filename_component(component_dir_name "${component_path}" NAME)
+    set(component_link "${EXTERNAL_SOURCE_DIR}/${component_name}/${component_dir_name}")
+    if(EXISTS "${component_link}")
+      message(FATAL_ERROR "Duplicate ${component_name} source directory name: ${component_dir_name}")
+    endif()
     message(STATUS "Creating symlink in ${EXTERNAL_SOURCE_DIR} for ${component_path}")
-    file(REMOVE_RECURSE "${EXTERNAL_SOURCE_DIR}/${component_name}")
-    file(CREATE_LINK
-      "${component_path}"
-      "${EXTERNAL_SOURCE_DIR}/${component_name}"
-      SYMBOLIC
-    )
-  endif()
+    file(CREATE_LINK "${component_path}" "${component_link}" SYMBOLIC)
+  endforeach()
 endforeach()
 
-# Build libraries for each external component
+# Create libraries for each external component
 foreach(component_name IN LISTS COMPONENTS)
-file(GLOB_RECURSE CONFIGURE_DEPENDS component_srcs ${EXTERNAL_SOURCE_DIR}/${component_name}/*.F90)
-  # TODO if/when cmake is added to component libraries, this should use add_subdirectory instead
+  file(GLOB_RECURSE CONFIGURE_DEPENDS component_srcs ${EXTERNAL_SOURCE_DIR}/${component_name}/*.F90)
   add_library(${component_name} STATIC ${component_srcs})
   target_include_directories(${component_name} PUBLIC ${EXTERNAL_SOURCE_DIR}/FMS)
   target_link_libraries(${component_name} PUBLIC FMS::fms)
-  target_compile_definitions(${component_name} PUBLIC INTERNAL_FILE_NML)
-target_compile_options(${component_name} PRIVATE $<$<Fortran_COMPILER_ID:GNU>:-fdefault-real-8>)
+  target_compile_definitions(${component_name} PUBLIC ${${component_name}_macros})
+  target_compile_options(${component_name} PUBLIC ${${component_name}_flags})
 	set_target_properties(${component_name} PROPERTIES
     Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/${component_name}_mods"
 	)
 endforeach()
 
-# ice_null has additional dependencies instead of just fms
-target_link_libraries(ice PRIVATE FMS::fms ocean ice_param)
-target_include_directories(ice PRIVATE
-	"${CMAKE_CURRENT_BINARY_DIR}/ocean_mods"
-	"${CMAKE_CURRENT_BINARY_DIR}/ice_param_mods"
-)
 
-# set some paths
+# Select type-specific sources and dependencies. The target definitions below are shared.
 set(SHARED_MOD_SRCS ${CMAKE_SOURCE_DIR}/shared/surface_flux.F90)
-set(SIMPLE_MOD_SRCS
-  ${CMAKE_SOURCE_DIR}/simple/flux_exchange.F90
-  ${CMAKE_SOURCE_DIR}/simple/ice_model.F90
+set(COUPLER_COMMON_INCLUDE_DIRS
+  ${CMAKE_CURRENT_BINARY_DIR}/ocean_mods
+  ${CMAKE_CURRENT_BINARY_DIR}/atmos_mods
+  ${CMAKE_CURRENT_BINARY_DIR}/land_mods
 )
-set(FULL_MOD_SRCS
-  ${CMAKE_SOURCE_DIR}/full/atm_land_ice_flux_exchange.F90
-  ${CMAKE_SOURCE_DIR}/full/atmos_ocean_dep_fluxes_calc.F90
-  ${CMAKE_SOURCE_DIR}/full/atmos_ocean_fluxes_calc.F90
-  ${CMAKE_SOURCE_DIR}/full/flux_exchange.F90
-  ${CMAKE_SOURCE_DIR}/full/full_coupler_mod.F90
-  ${CMAKE_SOURCE_DIR}/full/ice_ocean_flux_exchange.F90
-  ${CMAKE_SOURCE_DIR}/full/land_ice_flux_exchange.F90
-)
-set(SIMPLE_EXEC_SRC ${CMAKE_SOURCE_DIR}/simple/coupler_main.F90)
-set(FULL_EXEC_SRC ${CMAKE_SOURCE_DIR}/full/coupler_main.F90)
+set(COUPLER_COMMON_LIBRARIES FMS::fms ocean atmos land)
 
-# library for simple coupler modules + shared
-add_library(coupler_shared_simple STATIC ${SIMPLE_MOD_SRCS} ${SHARED_MOD_SRCS})
-set_target_properties(coupler_shared_simple PROPERTIES
-    Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/simple_coupler_mods"
-)
-set_target_properties(coupler_shared_simple PROPERTIES COMPILE_FLAGS "-fdefault-real-8")
-
-if(NULL_MODEL_MACROS)
-  target_compile_definitions(coupler_shared_simple PUBLIC use_AM3_physics)
+if(COUPLER_TYPE STREQUAL "simple")
+  set(COUPLER_MOD_SRCS
+    ${CMAKE_SOURCE_DIR}/simple/flux_exchange.F90
+    ${CMAKE_SOURCE_DIR}/simple/ice_model.F90
+  )
+  set(COUPLER_EXEC_SRC ${CMAKE_SOURCE_DIR}/simple/coupler_main.F90)
+  list(APPEND COUPLER_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR}/ice_param_mods)
+  list(APPEND COUPLER_SHARED_LIBRARIES ice_param)
+  set(COUPLER_NULL_MODEL_MACROS use_AM3_physics)
+elseif(COUPLER_TYPE STREQUAL "full")
+  set(COUPLER_MOD_SRCS
+    ${CMAKE_SOURCE_DIR}/full/atm_land_ice_flux_exchange.F90
+    ${CMAKE_SOURCE_DIR}/full/atmos_ocean_dep_fluxes_calc.F90
+    ${CMAKE_SOURCE_DIR}/full/atmos_ocean_fluxes_calc.F90
+    ${CMAKE_SOURCE_DIR}/full/flux_exchange.F90
+    ${CMAKE_SOURCE_DIR}/full/full_coupler_mod.F90
+    ${CMAKE_SOURCE_DIR}/full/ice_ocean_flux_exchange.F90
+    ${CMAKE_SOURCE_DIR}/full/land_ice_flux_exchange.F90
+  )
+  set(COUPLER_EXEC_SRC ${CMAKE_SOURCE_DIR}/full/coupler_main.F90)
+  list(APPEND COUPLER_INCLUDE_DIRS
+    ${CMAKE_SOURCE_DIR}/full
+    ${CMAKE_CURRENT_BINARY_DIR}/ice_mods
+    ${CMAKE_CURRENT_BINARY_DIR}/ice_param_mods
+  )
+  list(APPEND COUPLER_SHARED_LIBRARIES ice ice_param)
+  list(APPEND COUPLER_EXEC_LIBRARIES ice)
+  set(COUPLER_NULL_MODEL_MACROS use_AM3_physics _USE_LEGACY_LAND_)
+else()
+  message(FATAL_ERROR "Invalid COUPLER_TYPE '${COUPLER_TYPE}'. Expected 'simple' or 'full'.")
 endif()
-target_include_directories(coupler_shared_simple PUBLIC
-	${CMAKE_CURRENT_BINARY_DIR}/ocean_mods
-	${CMAKE_CURRENT_BINARY_DIR}/atmos_mods
-	${CMAKE_CURRENT_BINARY_DIR}/land_mods
-	${CMAKE_CURRENT_BINARY_DIR}/ice_param_mods
-)
-target_link_libraries(coupler_shared_simple PRIVATE
-  FMS::fms
-  ocean
-  atmos
-  land
-  ice_param
-)
 
-# library for full coupler modules + shared
-add_library(coupler_shared_full STATIC ${FULL_MOD_SRCS} ${SHARED_MOD_SRCS})
-set_target_properties(coupler_shared_full PROPERTIES
-    Fortran_MODULE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/full_coupler_mods"
+set(COUPLER_SHARED_TARGET coupler_shared_${COUPLER_TYPE})
+set(COUPLER_EXECUTABLE_TARGET coupler_${COUPLER_TYPE})
+set(COUPLER_MODULE_DIR "${CMAKE_CURRENT_BINARY_DIR}/${COUPLER_TYPE}_coupler_mods")
+
+add_library(${COUPLER_SHARED_TARGET} STATIC ${COUPLER_MOD_SRCS} ${SHARED_MOD_SRCS})
+set_target_properties(${COUPLER_SHARED_TARGET} PROPERTIES
+  COMPILE_FLAGS "-fdefault-real-8"
+  Fortran_MODULE_DIRECTORY "${COUPLER_MODULE_DIR}"
 )
-set_target_properties(coupler_shared_full PROPERTIES COMPILE_FLAGS "-fdefault-real-8")
 if(NULL_MODEL_MACROS)
-  target_compile_definitions(coupler_shared_full PUBLIC use_AM3_physics _USE_LEGACY_LAND_)
+  target_compile_definitions(${COUPLER_SHARED_TARGET} PUBLIC ${COUPLER_NULL_MODEL_MACROS})
 endif()
-target_include_directories(coupler_shared_full PUBLIC
-	${CMAKE_SOURCE_DIR}/full
-	${CMAKE_CURRENT_BINARY_DIR}/ocean_mods
-	${CMAKE_CURRENT_BINARY_DIR}/atmos_mods
-	${CMAKE_CURRENT_BINARY_DIR}/land_mods
-	${CMAKE_CURRENT_BINARY_DIR}/ice_mods
-	${CMAKE_CURRENT_BINARY_DIR}/ice_param_mods
+target_include_directories(${COUPLER_SHARED_TARGET} PUBLIC
+  ${COUPLER_COMMON_INCLUDE_DIRS}
+  ${COUPLER_INCLUDE_DIRS}
 )
-target_link_libraries(coupler_shared_full PRIVATE
-  FMS::fms
-  ocean
-  atmos
-  land
-  ice
-  ice_param
+target_link_libraries(${COUPLER_SHARED_TARGET} PRIVATE
+  ${COUPLER_COMMON_LIBRARIES}
+  ${COUPLER_SHARED_LIBRARIES}
 )
 
+add_executable(${COUPLER_EXECUTABLE_TARGET} ${COUPLER_EXEC_SRC})
+set_target_properties(${COUPLER_EXECUTABLE_TARGET} PROPERTIES
+  COMPILE_FLAGS "-fdefault-real-8"
+  RUNTIME_OUTPUT_NAME "coupler_${COUPLER_TYPE}.x"
+)
+target_include_directories(${COUPLER_EXECUTABLE_TARGET} PUBLIC
+  ${COUPLER_INCLUDE_DIRS}
+  ${COUPLER_MODULE_DIR}
+  ${COUPLER_COMMON_INCLUDE_DIRS}
+)
+target_link_libraries(${COUPLER_EXECUTABLE_TARGET} PRIVATE
+  ${COUPLER_SHARED_TARGET}
+  ${COUPLER_COMMON_LIBRARIES}
+  ${COUPLER_EXEC_LIBRARIES}
+)
 
-# simple coupler executable
-add_executable(coupler_simple ${CMAKE_SOURCE_DIR}/simple/coupler_main.F90)
-set_target_properties(coupler_simple PROPERTIES COMPILE_FLAGS "-fdefault-real-8")
-target_include_directories(coupler_simple PUBLIC
-  ${CMAKE_CURRENT_BINARY_DIR}/simple_coupler_mods
-	${CMAKE_CURRENT_BINARY_DIR}/ocean_mods
-	${CMAKE_CURRENT_BINARY_DIR}/atmos_mods
-	${CMAKE_CURRENT_BINARY_DIR}/land_mods
-)
-target_link_libraries(coupler_simple PRIVATE
-  coupler_shared_simple
-  FMS::fms
-  ocean
-  atmos
-  land
-)
-set_target_properties(coupler_simple PROPERTIES RUNTIME_OUTPUT_NAME "coupler_simple.x")
-
-# full coupler executable
-add_executable(coupler_full ${CMAKE_SOURCE_DIR}/full/coupler_main.F90)
-set_target_properties(coupler_full PROPERTIES COMPILE_FLAGS "-fdefault-real-8")
-target_include_directories(coupler_full PUBLIC
-	${CMAKE_SOURCE_DIR}/full
-  ${CMAKE_CURRENT_BINARY_DIR}/full_coupler_mods
-	${CMAKE_CURRENT_BINARY_DIR}/ocean_mods
-	${CMAKE_CURRENT_BINARY_DIR}/atmos_mods
-	${CMAKE_CURRENT_BINARY_DIR}/land_mods
-	${CMAKE_CURRENT_BINARY_DIR}/ice_mods
-)
-target_link_libraries(coupler_full PRIVATE
-  coupler_shared_full
-  FMS::fms
-  ocean
-  atmos
-  land
-  ice
-)
-set_target_properties(coupler_full PROPERTIES RUNTIME_OUTPUT_NAME "coupler_full.x")
-
-# simple test run, only intended for null_model builds
+# Test the selected coupler type for null-model builds.
 if(TEST_NULL_MODEL)
   enable_testing()
   add_test(NAME full_coupler_null_model_run
